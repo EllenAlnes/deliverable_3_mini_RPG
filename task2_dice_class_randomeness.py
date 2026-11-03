@@ -20,9 +20,23 @@ class Dice:
         # The dice must have a minimum of 2 sides
         if sides < 2:
             raise ValueError("A dice must have at least 2 sides.")
+            # raise issues an error of our choise.
+            # here it shows an error message if there are not enough sides on the dice
         
         self.sides = sides
 
     def roll(self) -> int:
         """Rolling the dice. Using random it roles the dice depending on its sides, with equal statistical probability for each value."""
-        random.randint(1, self.sides)
+        return random.randint(1, self.sides)
+
+    def __repr__(self):
+        # method that returns string representation like Dice(sides=6)
+        pass
+
+    def __call__(self, *args, **kwds):
+        # method that allow you to roll the dice created by d20 = Dice(sides=20) by calling d20.roll()
+        pass
+
+# dice1 = Dice()
+# dice2 = Dice(20)
+# dice3 = Dice(1)
