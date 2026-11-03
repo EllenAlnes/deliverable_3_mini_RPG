@@ -6,6 +6,10 @@
     # __repr__ - Dice(sides=6)
     # __call__ - d20 = Dice(sides=20) - by calling d20.roll()
 
+# __init__() oppretter og initialiserer objektet.
+# __repr__() bestemmer hvordan objektet representeres som tekst.
+# __call__() gjør at objektet kan brukes som en funksjon.
+
 import random
 
 
@@ -29,14 +33,22 @@ class Dice:
         """Rolling the dice. Using random it roles the dice depending on its sides, with equal statistical probability for each value."""
         return random.randint(1, self.sides)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
+        """Shows the representation of the dice. Shows the amount of sides."""
         # method that returns string representation like Dice(sides=6)
-        pass
+        return f"Dice(sides={self.sides})"
+        
 
     def __call__(self, *args, **kwds):
+        # lar meg bruke objektet som om det var en funksjon
+        # det som kommer opp om jeg bare skriver dice() ?
         # method that allow you to roll the dice created by d20 = Dice(sides=20) by calling d20.roll()
+        # denne skal kjøre roll funksjonen
+        #self.roll
         pass
 
-# dice1 = Dice()
+dice1 = Dice()
 # dice2 = Dice(20)
 # dice3 = Dice(1)
+
+print(repr(dice1))
