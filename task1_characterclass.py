@@ -22,11 +22,6 @@ class Character:
         self.hp_max = hp_max
         self.damage = damage
 
-    def attack(self, target) -> None:
-        """Attack and deal damage to target character"""
-        target._hp -= self.damage
-        target._hp = max(target._hp, 0)  # Target hp cannot end up lower than 0
-
     def introduce(self) -> None:
         """Creates string that introduces character"""
         print(f"Hi, my name is {self.name}!")
@@ -44,6 +39,28 @@ class Character:
         """Public read-only property to inspect HP without allowing direct, unsafe edits."""
         return self._hp
 
-
 # 1) Implement a take_damage() method to be used when the Character object is injured. 
-# # This method should only affect the characters own HP.
+# This method should only affect the characters own HP.
+
+    def take_damage(self) -> None:
+        """Loose HP when character is injuried."""
+        self._hp -= self.damage
+        self._hp = max(self._hp, 0) # returns highest value, of current hp and 0. Avoids negative hp.
+
+# 2) Implement a heal() method to be used when the Character heals (in other words increase their hit points)
+
+    def heal(self, amount: int) -> None:
+        """Character recieves a certain amount hp when healed."""
+        self._hp += amount 
+        self._hp = min(self._hp, self.hp_max) # returns lowest value. Avoids too high hp.
+
+# 3) Change the existing attack() method so that it calls the target's take_damage()
+# method rather than directly modifying the target's _hp .
+
+    def attack(self, target) -> None: # skal endres til å kalle den andres take_damage. So one object does not modify other objects HP
+        """Attack and cause target to take damage, by calling target object's take_damage() method"""
+        target.take_damage()
+
+
+
+
