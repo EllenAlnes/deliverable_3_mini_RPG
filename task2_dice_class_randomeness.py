@@ -27,6 +27,9 @@ class Dice:
             # raise issues an error of our choise.
             # here it shows an error message if there are not enough sides on the dice
         
+        # Controlling that the amount of sides is an integer
+        if not isinstance(sides, int):
+            raise TypeError("A dice must be given an integer number of sides.")
         self.sides = sides
 
     def roll(self) -> int:
@@ -48,6 +51,7 @@ class Dice:
         pass
 
 dice1 = Dice()
+dice4 = Dice(1.5)
 # dice2 = Dice(20)
 # dice3 = Dice(1)
 
