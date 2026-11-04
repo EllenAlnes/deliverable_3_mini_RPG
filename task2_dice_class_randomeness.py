@@ -42,17 +42,30 @@ class Dice:
         return f"Dice(sides={self.sides})"
         
 
-    def __call__(self, *args, **kwds):
+    def __call__(self) -> int:
         # lar meg bruke objektet som om det var en funksjon
         # det som kommer opp om jeg bare skriver dice() ?
         # method that allow you to roll the dice created by d20 = Dice(sides=20) by calling d20.roll()
         # denne skal kjøre roll funksjonen
         #self.roll
-        pass
 
-dice1 = Dice()
-dice4 = Dice(1.5)
+        return self.roll()
+        
+
+       
+
+#dice1 = Dice()
+#dice4 = Dice(1.5)
 # dice2 = Dice(20)
 # dice3 = Dice(1)
 
-print(repr(dice1))
+# print(repr(dice1))
+# dice1.roll()
+
+
+dice1 = Dice()
+d20 = Dice(sides=20)
+
+dice1.roll()
+print(dice1())
+print(d20())
