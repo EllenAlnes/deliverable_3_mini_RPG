@@ -61,6 +61,13 @@ class Character:
         """Attack and cause target to take damage, by calling target object's take_damage() method"""
         target.take_damage()
 
+# 4) Add an is_alive property to the Character class. This should be read-only,
+# and return True if _hp and False otherwise.
 
+    @property
+    def is_alive(self) -> bool:
+        """Returns True if character is alive."""
+        return bool(self._hp)
 
+print(character1.is_alive)
 
