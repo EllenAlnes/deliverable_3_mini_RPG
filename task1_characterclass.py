@@ -3,8 +3,7 @@
 
 # Problemet i notebook løste seg når jeg åpner notebook filer i en repository 
 # opprettet i github. Da kan jeg velge kernel .venv og kodene kjører
-
-#
+# -Nei!!! Måtte velge Jupyter kernel, ikke Python environment? Opprettet ny Jupyter kernel?
 
 class Character:
     """Represents a character in the RPG"""
@@ -44,3 +43,7 @@ class Character:
     def hp(self) -> int:
         """Public read-only property to inspect HP without allowing direct, unsafe edits."""
         return self._hp
+
+
+# 1) Implement a take_damage() method to be used when the Character object is injured. 
+# # This method should only affect the characters own HP.
