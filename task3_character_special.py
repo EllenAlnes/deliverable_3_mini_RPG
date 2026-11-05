@@ -51,7 +51,7 @@ class Character:
 # 3) Change the existing attack() method so that it calls the target's take_damage()
 # method rather than directly modifying the target's _hp .
 
-    def attack(self, target) -> None: # skal endres til å kalle den andres take_damage. So one object does not modify other objects HP
+    def attack(self, target) -> None: # So one object does not modify other objects HP
         """Attack and cause target to take damage, by calling target object's take_damage() method"""
         target.take_damage()
 
@@ -94,7 +94,32 @@ class Warrior(Character):
 class Mage(Character):
     """Mage is specialized subclass of Character. Resource-based attacker."""
 
-    def __init__(self, name: str, hp_max: int = 100, damage: int = 10) -> None:
-        """Create Mage with a name."""
+    def __init__(
+            self, name: str, 
+            mana: int = 30, 
+            mana_max: int = 30, 
+            hp_max: int = 100, 
+            damage: int = 10
+        ) -> None:
+        """Create Mage with a name. The mana available determines whether the mage can use magic."""
 
         super().__init__(name=name, hp_max=hp_max, damage=damage)
+        self.mana = mana
+        self.mana_max = mana_max
+
+# Override the Character.attack() method:
+    # If the mage has at least 10 mana left, spend 10 mana to deal a magical spell attack dealing double damage. 
+    # This magic attack does not use any weapons, even if the character has one equipped.
+    def attack(self, target):
+        """Overrides Character's attack method, uses 10 manas for double attack effect."""
+        if self.mana > 10: #and not use weapon!!
+            self.mana -= 10
+            target.damage *= 2
+            target.take_damage()
+
+    def attack(self, target) -> None: # So one object does not modify other objects HP
+        """Attack and cause target to take damage, by calling target object's take_damage() method"""
+        target.take_damage()
+
+    # If the mage has less than 10 mana left, fall back to the base attack, and
+    # restore 5 mana. This base attack should use whichever weapon the character has equipped.
