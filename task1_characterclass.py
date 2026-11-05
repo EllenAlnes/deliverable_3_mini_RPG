@@ -62,12 +62,15 @@ class Character:
         target.take_damage()
 
 # 4) Add an is_alive property to the Character class. This should be read-only,
-# and return True if _hp and False otherwise.
+# and return True if _hp > 0 and False otherwise.
 
     @property
     def is_alive(self) -> bool:
         """Returns True if character is alive."""
-        return bool(self._hp)
+        return bool(self._hp > 0)
 
+    
+character1 = Character(name="Aria", hp_max=100, damage=10)
+character2 = Character(name="Kura", hp_max=100, damage=20)
 print(character1.is_alive)
 
