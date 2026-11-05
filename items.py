@@ -7,17 +7,37 @@
 # Update Character.__init__ to accept an optional weapon.
 # If a character has an equipped weapon, attack() should roll damage from the weapon instead of using default base damage.
 
+from task2_dice_class_randomeness import Dice
+
 class Weapon:
     """Docstring for Weapon"""
 
     def __init__(self, name: str, damage_dice: Dice) -> None:
-        # Initialise weapon
-        name = 
-        damage_dice = 
-        pass
+        """Initialise a weapon.
+        
+        Arguments:
+            name (str): Name of the weapon.
+            damage_dice (Dice): Dise used to calculate damage.
+            
+        Returns:
+            None
+        """
+        self.name = name
+        self.damage_dice = damage_dice
 
 
     def roll_damage(self) -> int:
+        """Roll the damage dice.
+        
+        Returns:
+            int: Damage dealt by the weapon.
+        """
         # Roll the damage dice
         # calls self.damage_dice.roll()
-        pass
+        self.damage_dice.roll()
+
+sword = Weapon("Sword", Dice(8))
+damage = sword.roll_damage()
+
+print(sword)
+print(damage)
