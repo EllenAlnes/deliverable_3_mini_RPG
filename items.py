@@ -34,10 +34,11 @@ class Weapon:
         """
         # Roll the damage dice
         # calls self.damage_dice.roll()
-        self.damage_dice.roll()
+        return self.damage_dice.roll()
 
 sword = Weapon("Sword", Dice(8))
-damage = sword.roll_damage()
+#damage = sword.roll_damage()
 
-print(sword)
-print(damage)
+print(sword.name)
+print(sword.damage_dice)
+print(sword.roll_damage())
