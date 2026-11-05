@@ -69,25 +69,32 @@ character2 = Character(name="Kura", hp_max=100, damage=20)
 print(character1.is_alive)
 
 
+# TASK 4 - inheritance
+
 # 1. Warrior subclass (defensive specialist)
 # New attribute: armor: int , with a default value of 5
 # Override the Character.take_damage() method by reducing the incoming damage by armor before applying it.
-# Both inheritance and composition
 
-class Mage(Character):
-    """Mage is specialized subclass of Character. Defensive specialist."""
+
+class Warrior(Character):
+    """Warrior is specialized subclass of Character. Defensive specialist."""
 
     def __init__(self, name: str, armor: int = 5, hp_max: int = 100, damage: int = 10) -> None:
-        """Create a mage with a name"""
+        """Create a warrior with a name"""
 
         # Pass base attributes up to parent constructor
         super().__init__(name=name, hp_max=hp_max, damage=damage)
         self.armor = armor
 
     def take_damage(self) -> None:
-        """"""
+        """Warrior overrides Character's take damage method, uses armor."""
+        self._hp -= (self.damage - self.armor)
+        self._hp = max(self._hp, 0)
 
-    def take_damage(self) -> None:
-        """Loose HP when character is injuried."""
-        self._hp -= self.damage
-        self._hp = max(self._hp, 0) # returns highest value, of current hp and 0. Avoids negative hp.
+class Mage(Character):
+    """Mage is specialized subclass of Character. Resource-based attacker."""
+
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10) -> None:
+        """Create Mage with a name."""
+
+        super().__init__(name=name, hp_max=hp_max, damage=damage)
