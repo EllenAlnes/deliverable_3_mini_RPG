@@ -56,7 +56,11 @@ class Character:
 
     def attack(self, target) -> None: # skal endres til å kalle den andres take_damage. So one object does not modify other objects HP
         """Attack and cause target to take damage, by calling target object's take_damage() method"""
-        target.take_damage()
+        # target.take_damage() - Ellen kommentert ut, litt forvirret over kommentaren over - funker den som den skal?
+        if self.weapon is not None:
+           damage = self.weapon.roll_damage()
+        else:
+            target.take_damage()
 
 # 4) Add an is_alive property to the Character class. This should be read-only,
 # and return True if _hp > 0 and False otherwise.
