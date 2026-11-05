@@ -1,9 +1,9 @@
-
+from items import Weapon
 
 class Character:
     """Represents a character in the RPG"""
 
-    def __init__(self, name: str, hp_max: int = 100, damage: int = 10) -> None:
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: Weapon | None = None) -> None:
         """
         Initialise the Character
 
@@ -11,11 +11,13 @@ class Character:
             name (str): The name of the character.
             hp_max (int): Max hit points (default = 100)
             damage (int): Damage delt when character attacks (default = 10)
+            weapon (Weapon | None): The characters equipped weapon (default = None)
         """
         self.name = name
         self._hp = hp_max  # Note: _hp indicated private attribute
         self.hp_max = hp_max
         self.damage = damage
+        self.weapon = weapon    # Optional weapon, default None
 
     def introduce(self) -> None:
         """Creates string that introduces character"""
