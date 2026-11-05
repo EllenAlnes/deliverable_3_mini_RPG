@@ -1,93 +1,49 @@
+# TASK 4 - inheritance
 
-class Character:
-    """Represents a character in the RPG"""
+# 1) Warrior subclass
 
-    def __init__(self, name: str, hp_max: int = 100, damage: int = 10) -> None:
-        """
-        Initialise the Character
-
-        Args:
-            name (str): The name of the character.
-            hp_max (int): Max hit points (default = 100)
-            damage (int): Damage delt when character attacks (default = 10)
-        """
-        self.name = name
-        self._hp = hp_max  # Note: _hp indicated private attribute
-        self.hp_max = hp_max
-        self.damage = damage
-
-    def introduce(self) -> None:
-        """Creates string that introduces character"""
-        print(f"Hi, my name is {self.name}!")
-
-    def __repr__(self) -> str:
-        """Representation of character object"""
-        return f"<Character name={self.name} hp={self.hp} damage={self.damage}>)"
-
-    def __str__(self) -> str:
-        """String representation of character object"""
-        return f"Character: {self.name} with {self.hp} HP and {self.damage} damage"
-
-    @property
-    def hp(self) -> int:
-        """Public read-only property to inspect HP without allowing direct, unsafe edits."""
-        return self._hp
-
-# 1) Implement a take_damage() method to be used when the Character object is injured. 
-# This method should only affect the characters own HP.
-
-    def take_damage(self) -> None:
-        """Loose HP when character is injuried."""
-        self._hp -= self.damage
-        self._hp = max(self._hp, 0) # returns highest value, of current hp and 0. Avoids negative hp.
-
-# 2) Implement a heal() method to be used when the Character heals (in other words increase their hit points)
-
-    def heal(self, amount: int) -> None:
-        """Character recieves a certain amount hp when healed."""
-        self._hp += amount 
-        self._hp = min(self._hp, self.hp_max) # returns lowest value. Avoids too high hp.
-
-# 3) Change the existing attack() method so that it calls the target's take_damage()
-# method rather than directly modifying the target's _hp .
-
-    def attack(self, target) -> None: # skal endres til å kalle den andres take_damage. So one object does not modify other objects HP
-        """Attack and cause target to take damage, by calling target object's take_damage() method"""
-        target.take_damage()
-
-# 4) Add an is_alive property to the Character class. This should be read-only,
-# and return True if _hp > 0 and False otherwise.
-
-    @property
-    def is_alive(self) -> bool:
-        """Returns True if character is alive."""
-        return bool(self._hp > 0)
-
-    
-character1 = Character(name="Aria", hp_max=100, damage=10)
-character2 = Character(name="Kura", hp_max=100, damage=20)
-print(character1.is_alive)
-
-
-# 1. Warrior subclass (defensive specialist)
-# New attribute: armor: int , with a default value of 5
-# Override the Character.take_damage() method by reducing the incoming damage by armor before applying it.
-# Both inheritance and composition
-
-class Mage(Character):
-    """Mage is specialized subclass of Character. Defensive specialist."""
+class Warrior(Character):
+    """Warrior is specialized subclass of Character. Defensive specialist."""
 
     def __init__(self, name: str, armor: int = 5, hp_max: int = 100, damage: int = 10) -> None:
-        """Create a mage with a name"""
+        """Create a warrior with a name"""
 
         # Pass base attributes up to parent constructor
         super().__init__(name=name, hp_max=hp_max, damage=damage)
         self.armor = armor
 
     def take_damage(self) -> None:
-        """"""
+        """Warrior overrides Character's take damage method, uses armor."""
+        self._hp -= (self.damage - self.armor)
+        self._hp = max(self._hp, 0)
 
-    def take_damage(self) -> None:
-        """Loose HP when character is injuried."""
-        self._hp -= self.damage
-        self._hp = max(self._hp, 0) # returns highest value, of current hp and 0. Avoids negative hp.
+class Mage(Character):
+    """Mage is specialized subclass of Character. Resource-based attacker."""
+
+    def __init__(
+            self, name: str, 
+            mana: int = 30, 
+            mana_max: int = 30, 
+            hp_max: int = 100, 
+            damage: int = 10
+        ) -> None:
+        """Create Mage with a name. The mana available determines whether the mage can use magic."""
+
+        super().__init__(name=name, hp_max=hp_max, damage=damage)
+        self.mana = mana
+        self.mana_max = mana_max
+
+# 2) Mage subclass
+
+    def attack(self, target):
+        """Overrides Character's attack method. Uses 10 manas for double attack, or attack with weapon."""
+        if self.mana >= 10: 
+            self.mana -= 10
+            og_damage = target.damage
+            target.damage *= 2 # Character's attribute damage (here: target's damage) is not protected.
+            target.take_damage()
+            target.damage = og_damage
+        else:
+            super().attack(target) # Character's attack() is modified to use weapon if available??
+            self.mana += 5
+
