@@ -10,7 +10,11 @@
 from task2_dice_class_randomeness import Dice
 
 class Weapon:
-    """Docstring for Weapon"""
+    """Representa weapon that can be equipped by a character in the RPG game.
+    
+    Each weapon has a nama and a damage dice (Dice object) that determines 
+    the amount of damage dealt when the weapon is used in an attack.
+    The damage is calculated by rolling the weapon's associated dice."""
 
     def __init__(self, name: str, damage_dice: Dice) -> None:
         """Initialise a weapon.
