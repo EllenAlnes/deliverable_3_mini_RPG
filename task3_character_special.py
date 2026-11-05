@@ -44,17 +44,13 @@ class Mage(Character):
     # restore 5 mana. This base attack should use whichever weapon the character has equipped.
     def attack(self, target):
         """Overrides Character's attack method. Uses 10 manas for double attack, or attack with weapon."""
-        if self.mana > 10: 
+        if self.mana >= 10: 
             self.mana -= 10
-            target.damage *= 2 # huhhhh?
+            og_damage = target.damage
+            target.damage *= 2 # Character's attribute damage (here: target's damage) is not protected.
             target.take_damage()
+            target.damage = og_damage
         else:
             super().attack(target) # Character's attack() is modified to use weapon if available??
             self.mana += 5
-
-# from class Character:
-    def attack(self, target) -> None: # So one object does not modify other objects HP
-        """Attack and cause target to take damage, by calling target object's take_damage() method"""
-        target.take_damage()
-
 
