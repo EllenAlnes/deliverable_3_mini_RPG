@@ -1,5 +1,4 @@
 
-# HUSK Å SLETTE BRANCHEN "task1_-update_class"
 
 class Character:
     """Represents a character in the RPG"""
@@ -70,12 +69,3 @@ character1 = Character(name="Aria", hp_max=100, damage=10)
 character2 = Character(name="Kura", hp_max=100, damage=20)
 print(character1.is_alive)
 
-
-# 1. Warrior subclass (defensive specialist) 
-# New attribute: armor: int , with a default value of 5
-# Override the Character.take_damage() method by reducing the incoming damage by armor before applying it.
-
-class Mage:
-    """Mage is specialized subclass of Character. Defensive specialist."""
-
-    def armor
