@@ -1,9 +1,6 @@
 # TASK 4 - inheritance
 
-# 1. Warrior subclass (defensive specialist)
-# New attribute: armor: int , with a default value of 5
-# Override the Character.take_damage() method by reducing the incoming damage by armor before applying it.
-
+# 1) Warrior subclass
 
 class Warrior(Character):
     """Warrior is specialized subclass of Character. Defensive specialist."""
@@ -36,12 +33,8 @@ class Mage(Character):
         self.mana = mana
         self.mana_max = mana_max
 
-# Override the Character.attack() method:
-    # If the mage has at least 10 mana left, spend 10 mana to deal a magical spell attack dealing double damage. 
-    # This magic attack does not use any weapons, even if the character has one equipped.
+# 2) Mage subclass
 
-    # If the mage has less than 10 mana left, fall back to the base attack, and
-    # restore 5 mana. This base attack should use whichever weapon the character has equipped.
     def attack(self, target):
         """Overrides Character's attack method. Uses 10 manas for double attack, or attack with weapon."""
         if self.mana >= 10: 
