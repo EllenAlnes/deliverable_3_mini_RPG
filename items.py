@@ -9,6 +9,7 @@
 
 from task2_dice_class_randomeness import Dice
 
+
 class Weapon:
     """Representa weapon that can be equipped by a character in the RPG game.
     
@@ -40,9 +41,9 @@ class Weapon:
         # calls self.damage_dice.roll()
         return self.damage_dice.roll()
 
-sword = Weapon("Sword", Dice(8))
-#damage = sword.roll_damage()
+# sword = Weapon("Sword", Dice(8))
+# damage = sword.roll_damage()
 
-print(sword.name)
-print(sword.damage_dice)
-print(sword.roll_damage())
+# print(sword.name)
+# print(sword.damage_dice)
+# print(sword.roll_damage())
