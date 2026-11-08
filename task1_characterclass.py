@@ -1,4 +1,6 @@
 from items import Weapon
+from task2_dice_class_randomeness import Dice
+
 
 class Character:
     """Represents a character in the RPG"""
@@ -38,10 +40,13 @@ class Character:
 
 # 1) Implement a take_damage() method to be used when the Character object is injured. 
 # This method should only affect the characters own HP.
+### Ellen gjort endring - se på doc-string
 
-    def take_damage(self) -> None:
-        """Loose HP when character is injuried."""
-        self._hp -= self.damage
+    def take_damage(self, damage: int) -> None:
+        """Loose HP when character is injuried.
+        Reduse charachter HP by the recived damage."""
+        #self._hp -= self.damage
+        self._hp -= damage  # Endring Elen
         self._hp = max(self._hp, 0) # returns highest value, of current hp and 0. Avoids negative hp.
 
 # 2) Implement a heal() method to be used when the Character heals (in other words increase their hit points)
@@ -54,13 +59,16 @@ class Character:
 # 3) Change the existing attack() method so that it calls the target's take_damage()
 # method rather than directly modifying the target's _hp .
 
-    def attack(self, target) -> None: # skal endres til å kalle den andres take_damage. So one object does not modify other objects HP
+    def attack(self, target) -> None: # So one object does not modify other objects HP
         """Attack and cause target to take damage, by calling target object's take_damage() method"""
         # target.take_damage() - Ellen kommentert ut, litt forvirret over kommentaren over - funker den som den skal?
+        # Endret så damage er et input i den originale koden - nå bestemmes damage ut fra om det er et våpen eller ikke
         if self.weapon is not None:
            damage = self.weapon.roll_damage()
         else:
-            target.take_damage()
+            damage = self.damage
+
+        target.take_damage(damage)
 
 # 4) Add an is_alive property to the Character class. This should be read-only,
 # and return True if _hp > 0 and False otherwise.
@@ -71,7 +79,25 @@ class Character:
         return bool(self._hp > 0)
 
     
-character1 = Character(name="Aria", hp_max=100, damage=10)
-character2 = Character(name="Kura", hp_max=100, damage=20)
-print(character1.is_alive)
+# character1 = Character(name="Aria", hp_max=100, damage=10)
+# character2 = Character(name="Kura", hp_max=100, damage=20)
+# print(character1.is_alive)
+
+# Test - uten våpen
+hero = Character("Hero", damage=10)
+enemy = Character("Enemy", hp_max=100)
+
+hero.attack(enemy)
+
+print(enemy.hp)
+
+# Test - med våpen
+sword = Weapon("Sword", Dice(8))
+
+hero2 = Character("Hero2", weapon=sword)
+enemy2 = Character("Enemy2", hp_max=100)
+
+hero2.attack(enemy2)
+
+print(enemy2.hp)
 
