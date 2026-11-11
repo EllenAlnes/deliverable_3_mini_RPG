@@ -1,9 +1,11 @@
+from items import Weapon
+from task2_dice_class_randomeness import Dice
 
 
 class Character:
     """Represents a character in the RPG"""
 
-    def __init__(self, name: str, hp_max: int = 100, damage: int = 10) -> None:
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: Weapon | None = None) -> None:
         """
         Initialise the Character
 
@@ -11,11 +13,13 @@ class Character:
             name (str): The name of the character.
             hp_max (int): Max hit points (default = 100)
             damage (int): Damage delt when character attacks (default = 10)
+            weapon (Weapon | None): The characters equipped weapon (default = None)
         """
         self.name = name
         self._hp = hp_max  # Note: _hp indicated private attribute
         self.hp_max = hp_max
         self.damage = damage
+        self.weapon = weapon    # Optional weapon, default None
 
     def introduce(self) -> None:
         """Creates string that introduces character"""
@@ -23,7 +27,7 @@ class Character:
 
     def __repr__(self) -> str:
         """Representation of character object"""
-        return f"<Character name={self.name} hp={self.hp} damage={self.damage}>)"
+        return f"<Character name={self.name} hp={self.hp} damage={self.damage}>"
 
     def __str__(self) -> str:
         """String representation of character object"""
@@ -36,10 +40,13 @@ class Character:
 
 # 1) Implement a take_damage() method to be used when the Character object is injured. 
 # This method should only affect the characters own HP.
+### Ellen gjort endring - se på doc-string
+    # Original dock string (Loose HP when character is injuried.)
 
-    def take_damage(self) -> None:
-        """Loose HP when character is injuried."""
-        self._hp -= self.damage
+    def take_damage(self, damage: int) -> None:
+        """Reduse charachter HP by the recived damage."""
+        #self._hp -= self.damage
+        self._hp -= damage  # Endring Elen
         self._hp = max(self._hp, 0) # returns highest value, of current hp and 0. Avoids negative hp.
 
 # 2) Implement a heal() method to be used when the Character heals (in other words increase their hit points)
@@ -52,9 +59,16 @@ class Character:
 # 3) Change the existing attack() method so that it calls the target's take_damage()
 # method rather than directly modifying the target's _hp .
 
-    def attack(self, target) -> None: # skal endres til å kalle den andres take_damage. So one object does not modify other objects HP
+    def attack(self, target: "Character") -> None: # So one object does not modify other objects HP
         """Attack and cause target to take damage, by calling target object's take_damage() method"""
-        target.take_damage()
+        # target.take_damage() - Ellen kommentert ut, litt forvirret over kommentaren over - funker den som den skal?
+        # Endret så damage er et input i den originale koden - nå bestemmes damage ut fra om det er et våpen eller ikke
+        if self.weapon is not None:
+           damage = self.weapon.roll_damage()
+        else:
+            damage = self.damage
+
+        target.take_damage(damage)
 
 # 4) Add an is_alive property to the Character class. This should be read-only,
 # and return True if _hp > 0 and False otherwise.
@@ -65,7 +79,25 @@ class Character:
         return bool(self._hp > 0)
 
     
-character1 = Character(name="Aria", hp_max=100, damage=10)
-character2 = Character(name="Kura", hp_max=100, damage=20)
-print(character1.is_alive)
+# character1 = Character(name="Aria", hp_max=100, damage=10)
+# character2 = Character(name="Kura", hp_max=100, damage=20)
+# print(character1.is_alive)
+
+# Test - uten våpen
+# hero = Character("Hero", damage=10)
+# enemy = Character("Enemy", hp_max=100)
+
+# hero.attack(enemy)
+
+# print(enemy.hp)
+
+# # Test - med våpen
+# sword = Weapon("Sword", Dice(8))
+
+# hero2 = Character("Hero2", weapon=sword)
+# enemy2 = Character("Enemy2", hp_max=100)
+
+# hero2.attack(enemy2)
+
+# print(enemy2.hp)
 
