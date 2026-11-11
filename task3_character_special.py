@@ -1,3 +1,5 @@
+from task1_characterclass import Character
+
 # TASK 4 - inheritance
 
 # 1) Warrior subclass
@@ -39,11 +41,8 @@ class Mage(Character):
         """Overrides Character's attack method. Uses 10 manas for double attack, or attack with weapon."""
         if self.mana >= 10: 
             self.mana -= 10
-            og_damage = target.damage
-            target.damage *= 2 # Character's attribute damage (here: target's damage) is not protected.
-            target.take_damage()
-            target.damage = og_damage
+            damage = self.weapon.roll_damage() if self.weapon is not None else self.damage
+            target.take_damage(damage * 2)
         else:
             super().attack(target) # Character's attack() is modified to use weapon if available??
             self.mana += 5
-
