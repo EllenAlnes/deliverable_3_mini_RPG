@@ -40,13 +40,10 @@ class Character:
 
 # 1) Implement a take_damage() method to be used when the Character object is injured. 
 # This method should only affect the characters own HP.
-### Ellen gjort endring - se på doc-string
-    # Original dock string (Loose HP when character is injuried.)
 
     def take_damage(self, damage: int) -> None:
         """Reduse charachter HP by the recived damage."""
-        #self._hp -= self.damage
-        self._hp -= damage  # Endring Elen
+        self._hp -= damage  
         self._hp = max(self._hp, 0) # returns highest value, of current hp and 0. Avoids negative hp.
 
 # 2) Implement a heal() method to be used when the Character heals (in other words increase their hit points)
@@ -61,8 +58,6 @@ class Character:
 
     def attack(self, target: "Character") -> None: # So one object does not modify other objects HP
         """Attack and cause target to take damage, by calling target object's take_damage() method"""
-        # target.take_damage() - Ellen kommentert ut, litt forvirret over kommentaren over - funker den som den skal?
-        # Endret så damage er et input i den originale koden - nå bestemmes damage ut fra om det er et våpen eller ikke
         if self.weapon is not None:
            damage = self.weapon.roll_damage()
         else:
