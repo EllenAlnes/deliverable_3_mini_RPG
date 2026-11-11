@@ -46,7 +46,6 @@ class Battle:
             attacker.attack(target)
             print(f"{target.name} has {target.hp} HP left.")
 
-        #print(f"hero hp: {self.hero.hp} and enemy hp: {self.enemy.hp}")
 
         return hero_life, enemy_life
 
