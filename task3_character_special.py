@@ -1,4 +1,5 @@
 from task1_characterclass import Character
+from items import Weapon
 
 # TASK 4 - inheritance
 
@@ -7,11 +8,11 @@ from task1_characterclass import Character
 class Warrior(Character):
     """Warrior is specialized subclass of Character. Defensive specialist."""
 
-    def __init__(self, name: str, armor: int = 5, hp_max: int = 100, damage: int = 10) -> None:
+    def __init__(self, name: str, armor: int = 5, hp_max: int = 100, damage: int = 10, weapon: Weapon | None = None,) -> None:
         """Create a warrior with a name"""
 
         # Pass base attributes up to parent constructor
-        super().__init__(name=name, hp_max=hp_max, damage=damage)
+        super().__init__(name=name, hp_max=hp_max, damage=damage, weapon=weapon)
         self.armor = armor
 
     def take_damage(self, damage: int) -> None:
@@ -27,11 +28,12 @@ class Mage(Character):
             mana: int = 30, 
             mana_max: int = 30, 
             hp_max: int = 100, 
-            damage: int = 10
+            damage: int = 10,
+            weapon: Weapon | None = None,
         ) -> None:
         """Create Mage with a name. The mana available determines whether the mage can use magic."""
 
-        super().__init__(name=name, hp_max=hp_max, damage=damage)
+        super().__init__(name=name, hp_max=hp_max, damage=damage, weapon=weapon)
         self.mana = mana
         self.mana_max = mana_max
 
@@ -44,5 +46,5 @@ class Mage(Character):
             damage = self.weapon.roll_damage() if self.weapon is not None else self.damage
             target.take_damage(damage * 2)
         else:
-            super().attack(target) # Character's attack() is modified to use weapon if available??
+            super().attack(target) 
             self.mana += 5

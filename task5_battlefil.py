@@ -30,7 +30,7 @@ class Battle:
         hero_life = self.hero.is_alive
         enemy_life = self.enemy.is_alive
 
-        # lage en loop som sjekker ulike situasjoner, printer all status
+
         for attacker, target in ((self.hero, self.enemy), (self.enemy, self.hero)):
             if not attacker.is_alive:
                 break
@@ -62,7 +62,11 @@ class Battle:
         return hero_life, enemy_life
 
 
-hero = Warrior("Per")
+# initiate battle with and without weapon
+
+sword = Weapon("sword", Dice(7))
+
+hero = Warrior("Per", weapon=sword)
 enemy = Mage("Hans")
 
 battle = Battle(hero, enemy)
