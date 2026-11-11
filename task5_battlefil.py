@@ -16,7 +16,7 @@ class Battle:
 # 2) Implement a play_round() method where hero attacks enemy , and if enemy
 # is still alive, enemy attacks hero .
 
-    def play_round(self) -> bool, str:
+    def play_round(self) -> tuple[bool, bool]:
         """Play one round. Hero attacks enemy, enemy attacks if enemy still alive.
 
         Returns: 
@@ -29,13 +29,20 @@ class Battle:
         hero_life = bool(self.hero.is_alive)
         enemy_life = bool(self.enemy.is_alive)
 
-        return hero_life, enemy_life, print(f"hero hp: {} and enemy hp: {}")
+        print(f"hero hp: {self.hero.hp_max} and enemy hp: {self.enemy.hp_max}")
+
+        return hero_life, enemy_life
 
 # 3) Implement a simulate_battle() method with a while loop that runs rounds
 # until one character is no longer alive.
 
-    def simultate_battle(self) -> str:
+    def simultate_battle(self, hero_life, enemy_life) -> str:
         """Creates a print of """
         while hero_life is True and enemy_life is True:
-            play_round()
+            self.play_round()
 
+
+hero = Warrior("Per")
+enemy = Mage("Hans")
+
+Battle()

@@ -12,9 +12,9 @@ class Warrior(Character):
         super().__init__(name=name, hp_max=hp_max, damage=damage)
         self.armor = armor
 
-    def take_damage(self) -> None:
+    def take_damage(self, damage: int) -> None:
         """Warrior overrides Character's take damage method, uses armor."""
-        self._hp -= (self.damage - self.armor)
+        self._hp -= (damage - self.armor)
         self._hp = max(self._hp, 0)
 
 class Mage(Character):
